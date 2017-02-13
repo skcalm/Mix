@@ -2,6 +2,11 @@ package example.com.mix.request;
 
 import android.os.AsyncTask;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,6 +19,7 @@ import okhttp3.Response;
 public abstract class AbstractRequest<T> {
     private Response response;
     private Call call;
+    private AsyncTask asyncTask;
 
     public T request(){
         try {
@@ -30,7 +36,7 @@ public abstract class AbstractRequest<T> {
     }
 
     public void asyncRequest(final ResponseCallback<T> callback){
-        new AsyncTask<Void, Void, T>(){
+        asyncTask = new AsyncTask<Void, Void, T>(){
             @Override
             protected T doInBackground(Void... voids) {
                 return request();
@@ -42,7 +48,7 @@ public abstract class AbstractRequest<T> {
                     callback.onResponse(t);
                 }
             }
-        }.execute();
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public Response response(){
@@ -51,6 +57,7 @@ public abstract class AbstractRequest<T> {
 
     public void cancel(){
         if(call != null) call.cancel();
+        if(asyncTask != null) asyncTask.cancel(true);
     }
 
     protected abstract void buildRequest(Request.Builder requestBuilder);
