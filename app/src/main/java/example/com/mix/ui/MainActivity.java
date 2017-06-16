@@ -14,12 +14,25 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.btn_greendao_test:
                 startActivity(new Intent(this, GreenDaoTestActivity.class));
                 break;
-            default: break;
+            case R.id.btn_coordinator_layout:
+                startActivity(new Intent(this, CoordinatorLayoutActivity.class));
+                break;
+            case R.id.btn_coordinator2_layout:
+                startActivity(new Intent(this, Coordinator2LayoutActivity.class));
+                break;
+            case R.id.btn_coordinator3_layout:
+                startActivity(new Intent(this, Coordinator3LayoutActivity.class));
+                break;
+            case R.id.btn_coordinator_layout2:
+                startActivity(new Intent(this, ToolbarActivity.class));
+                break;
+            default:
+                break;
         }
     }
 }

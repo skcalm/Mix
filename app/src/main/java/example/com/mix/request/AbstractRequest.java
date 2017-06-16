@@ -2,10 +2,10 @@ package example.com.mix.request;
 
 import android.os.AsyncTask;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.security.Policy;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -17,9 +17,12 @@ import okhttp3.Response;
  */
 
 public abstract class AbstractRequest<T> {
-    private Response response;
-    private Call call;
+    private volatile Response response;
+    private volatile Call call;
     private AsyncTask asyncTask;
+    private static final ThreadPoolExecutor THREAD_EXECUTOR = new ThreadPoolExecutor(
+            10, 10, 60, TimeUnit.SECONDS,
+            new LinkedBlockingQueue<Runnable>(128));
 
     public T request(){
         try {
@@ -36,19 +39,26 @@ public abstract class AbstractRequest<T> {
     }
 
     public void asyncRequest(final ResponseCallback<T> callback){
-        asyncTask = new AsyncTask<Void, Void, T>(){
-            @Override
-            protected T doInBackground(Void... voids) {
-                return request();
-            }
-
-            @Override
-            protected void onPostExecute(T t) {
-                if(callback != null){
-                    callback.onResponse(t);
+        try {
+            asyncTask = new AsyncTask<Void, Void, T>() {
+                @Override
+                protected T doInBackground(Void... voids) {
+                    return request();
                 }
+
+                @Override
+                protected void onPostExecute(T t) {
+                    if (callback != null) {
+                        callback.onResponse(t);
+                    }
+                }
+            }.executeOnExecutor(THREAD_EXECUTOR);
+        }catch (Exception e){
+            e.printStackTrace();
+            if (callback != null) {
+                callback.onResponse(null);
             }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
     }
 
     public Response response(){

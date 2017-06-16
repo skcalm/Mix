@@ -8,7 +8,7 @@ import example.com.mix.App;
  * Created by gordon on 2017/2/12.
  */
 
-public class ToastEx {
+public class ToastCover {
     private static Toast toast;
 
     public static void showShort(String text){

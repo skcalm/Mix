@@ -16,8 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.GreenDaoTestActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+        <activity
+            android:name=".ui.GreenDaoTestActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ui.CoordinatorLayoutActivity" />
+        <activity android:name=".ui.ToolbarActivity" />
+        <activity android:name=".ui.Coordinator2LayoutActivity" />
+        <activity android:name=".ui.Coordinator3LayoutActivity"></activity>
     </application>
 
 </manifest>

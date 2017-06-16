@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 import example.com.mix.App;
 import example.com.mix.R;
 import example.com.mix.data.dao.gen.User;
-import example.com.mix.widgets.ToastEx;
+import example.com.mix.widgets.ToastCover;
 
 public class GreenDaoTestActivity extends BaseActivity {
     /*views*/
@@ -43,8 +42,6 @@ public class GreenDaoTestActivity extends BaseActivity {
     }
 
     private void initView(){
-        getSupportActionBar().setTitle("GreenDaoTest");
-
         List<User> users = App.daoHelper().users();
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,
                 android.R.id.text1, users);
@@ -67,12 +64,12 @@ public class GreenDaoTestActivity extends BaseActivity {
     private void createUser() {
         String name = editName.getText().toString();
         if (TextUtils.isEmpty(name)) {
-            ToastEx.showShort("name can not be empty");
+            ToastCover.showShort("name can not be empty");
             return;
         }
         String tel = editTel.getText().toString();
         if(TextUtils.isEmpty(tel)){
-            ToastEx.showShort("tel can not be empty");
+            ToastCover.showShort("tel can not be empty");
             return;
         }
         App.daoHelper().session().insertOrReplace(new User(null, name,
