@@ -28,6 +28,9 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_coordinator3_layout:
                 startActivity(new Intent(this, Coordinator3LayoutActivity.class));
                 break;
+            case R.id.btn_coordinator4_layout:
+                startActivity(new Intent(this, Coordinator4LayoutActivity.class));
+                break;
             case R.id.btn_coordinator_layout2:
                 startActivity(new Intent(this, ToolbarActivity.class));
                 break;
