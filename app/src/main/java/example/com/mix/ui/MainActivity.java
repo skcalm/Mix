@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(this, ToolbarActivity.class));
                 break;
             case R.id.btn_scene_transition:
-                startActivity(new Intent(this, ToolbarActivity.class));
+                startActivity(new Intent(this, SceneTransitionActivity.class));
                 break;
             default:
                 break;
