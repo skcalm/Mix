@@ -75,4 +75,15 @@
         android:text="toolbar"
         android:textColor="#fff"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_scene_transition"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#FF6060"
+        android:onClick="onClick"
+        android:layout_marginTop="10dp"
+        android:text="scene transition"
+        android:textColor="#fff"
+        android:textAllCaps="false" />
 </LinearLayout>

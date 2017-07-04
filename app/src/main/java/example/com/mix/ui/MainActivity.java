@@ -34,6 +34,9 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_coordinator_layout2:
                 startActivity(new Intent(this, ToolbarActivity.class));
                 break;
+            case R.id.btn_scene_transition:
+                startActivity(new Intent(this, ToolbarActivity.class));
+                break;
             default:
                 break;
         }
