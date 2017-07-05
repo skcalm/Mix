@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-160dp"
         android:background="@drawable/scene_bottom_shape">
 
         <ImageView
@@ -17,9 +17,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="6dp"
-            android:padding="10dp"
             android:onClick="onClick"
-            android:src="@mipmap/arrow_down"/>
+            android:padding="10dp"
+            android:rotation="-180"
+            android:src="@mipmap/arrow_down" />
 
         <View
             android:id="@+id/menu"
@@ -35,7 +36,6 @@
             android:src="@mipmap/personal_info"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:onClick="onClick"
             android:padding="10dp"/>
     </RelativeLayout>
 
@@ -53,13 +53,13 @@
             android:id="@+id/warning"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@mipmap/warning"/>
+            android:src="@mipmap/warning" />
 
         <ImageView
             android:id="@+id/report"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
-            android:src="@mipmap/report"/>
+            android:src="@mipmap/report" />
     </LinearLayout>
 </RelativeLayout>

@@ -24,7 +24,8 @@
         <activity android:name=".ui.Coordinator2LayoutActivity" />
         <activity android:name=".ui.Coordinator3LayoutActivity" />
         <activity android:name=".ui.Coordinator4LayoutActivity" />
-        <activity android:name=".ui.SceneTransitionActivity"></activity>
+        <activity android:name=".ui.SceneTransitionActivity" />
+        <activity android:name=".ui.PersonalInfoActivity"></activity>
     </application>
 
 </manifest>
