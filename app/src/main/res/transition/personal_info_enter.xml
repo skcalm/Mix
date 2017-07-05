@@ -1,7 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
-    <slide android:slideEdge="right" />
-    <changeTransform>
-        <targets android:targetId="@id/close"/>
-    </changeTransform>
+    <slide android:slideEdge="right" android:startDelay="300">
+        <targets>
+            <target android:targetId="@id/tel"/>
+            <target android:targetId="@id/close"/>
+        </targets>
+    </slide>
+
+    <slide android:slideEdge="right" android:startDelay="400">
+        <targets>
+            <target android:targetId="@id/instruct"/>
+        </targets>
+    </slide>
+
+    <slide android:slideEdge="right" android:startDelay="500">
+        <targets>
+            <target android:targetId="@id/layoutItem1"/>
+        </targets>
+    </slide>
+
+    <slide android:slideEdge="right" android:startDelay="600" >
+        <targets>
+            <target android:targetId="@id/layoutItem2"/>
+        </targets>
+    </slide>
+
+    <slide android:slideEdge="right" android:startDelay="700">
+        <targets>
+            <target android:targetId="@id/layoutItem3"/>
+        </targets>
+    </slide>
+
+    <slide android:slideEdge="right" android:startDelay="800">
+        <targets>
+            <target android:targetId="@id/layoutItem4"/>
+        </targets>
+    </slide>
 </transitionSet>

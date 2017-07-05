@@ -30,6 +30,7 @@ public class SceneTransitionActivity extends BaseActivity {
 
     /*variants*/
     private boolean isCollapsed;
+    private boolean isBackFromAnotherActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class SceneTransitionActivity extends BaseActivity {
         transition2.addTarget(R.id.layoutTop);
         transition2.setStartDelay(100);
         collapsedTransitionSet.addTransition(transition2);
-        collapsedTransitionSet.addTransition(new Rotation().setDuration(500));
+        collapsedTransitionSet.addTransition(new Rotation().setDuration(300));
 
         expandTransitionSet = new TransitionSet();
         Transition transition3 = new ChangeBounds();
@@ -67,11 +68,11 @@ public class SceneTransitionActivity extends BaseActivity {
         Transition transition4 = new ChangeBounds();
         transition4.addTarget(R.id.layoutTop);
         expandTransitionSet.addTransition(transition4);
-        expandTransitionSet.addTransition(new Rotation().setDuration(500));
+        expandTransitionSet.addTransition(new Rotation().setDuration(300));
 
         personalInfoTransitionSet = new TransitionSet();
         personalInfoTransitionSet.addTransition(new ChangeBounds());
-        personalInfoTransitionSet.addTransition(new Rotation().setDuration(400).setStartDelay(200));
+        personalInfoTransitionSet.addTransition(new Rotation().setDuration(300).setStartDelay(100));
         personalInfoTransitionSet.addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(@NonNull Transition transition) {
@@ -83,12 +84,14 @@ public class SceneTransitionActivity extends BaseActivity {
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                             SceneTransitionActivity.this,
-                            new Pair<View, String>(findViewById(R.id.menu), "avatar"));
+                            new Pair<View, String>(findViewById(R.id.menu), "avatar"),
+                            new Pair<View, String>(findViewById(R.id.layoutBottom), "arc"));
                     startActivity(new Intent(SceneTransitionActivity.this, PersonalInfoActivity.class),
                             optionsCompat.toBundle());
                 }else{
                     startActivity(new Intent(SceneTransitionActivity.this, PersonalInfoActivity.class));
                 }
+                isBackFromAnotherActivity = true;
             }
 
             @Override
@@ -109,7 +112,6 @@ public class SceneTransitionActivity extends BaseActivity {
     }
 
     private void initView(){
-
     }
 
     public void onClick(View v){
@@ -128,5 +130,11 @@ public class SceneTransitionActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if(isBackFromAnotherActivity){
+            scenePersonalInfo.exit();
+            sceneStart.enter();
+            isBackFromAnotherActivity = false;
+        }
     }
 }

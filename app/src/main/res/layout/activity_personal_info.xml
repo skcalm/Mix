@@ -21,7 +21,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:rotation="540"
             android:padding="30dp"
             android:src="@mipmap/close"
             android:onClick="onClose"/>
@@ -30,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
+            android:transitionName="arc"
             android:background="@drawable/personal_info_head_bg" />
 
         <View
@@ -65,6 +65,7 @@
             style="@style/TextSub" />
 
         <LinearLayout
+            android:id="@+id/layoutItem1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_marginTop="30dp"
@@ -84,6 +85,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutItem2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:gravity="center_vertical">
@@ -102,6 +104,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutItem3"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:gravity="center_vertical">
@@ -120,6 +123,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutItem4"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:gravity="center_vertical">
