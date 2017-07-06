@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
-    <slide android:slideEdge="right" android:startDelay="300">
+    <slide android:slideEdge="right">
         <targets>
             <target android:targetId="@id/tel"/>
-            <target android:targetId="@id/close"/>
         </targets>
     </slide>
 
-    <slide android:slideEdge="right" android:startDelay="400">
+    <slide android:slideEdge="right" android:startDelay="100">
         <targets>
             <target android:targetId="@id/instruct"/>
         </targets>
     </slide>
 
-    <slide android:slideEdge="right" android:startDelay="500">
+    <slide android:slideEdge="right"  android:startDelay="200">
         <targets>
-            <target android:targetId="@id/layoutItem1"/>
+            <target android:targetId="@id/item1_icon"/>
+            <target android:targetId="@id/item1_text"/>
         </targets>
     </slide>
 
-    <slide android:slideEdge="right" android:startDelay="600" >
+    <slide android:slideEdge="right"  android:startDelay="300">
         <targets>
-            <target android:targetId="@id/layoutItem2"/>
+            <target android:targetId="@id/item2_icon"/>
+            <target android:targetId="@id/item2_text"/>
         </targets>
     </slide>
 
-    <slide android:slideEdge="right" android:startDelay="700">
+    <slide android:slideEdge="right"  android:startDelay="400">
         <targets>
-            <target android:targetId="@id/layoutItem3"/>
+            <target android:targetId="@id/item3_icon"/>
+            <target android:targetId="@id/item3_text"/>
         </targets>
     </slide>
 
-    <slide android:slideEdge="right" android:startDelay="800">
+    <slide android:slideEdge="right"  android:startDelay="500">
         <targets>
-            <target android:targetId="@id/layoutItem4"/>
+            <target android:targetId="@id/item4_icon"/>
+            <target android:targetId="@id/item4_text"/>
         </targets>
     </slide>
 </transitionSet>

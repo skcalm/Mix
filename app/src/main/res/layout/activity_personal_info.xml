@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
@@ -26,6 +27,7 @@
             android:onClick="onClose"/>
 
         <View
+            android:id="@+id/arc"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
@@ -72,11 +74,13 @@
             android:gravity="center_vertical">
 
             <ImageView
+                android:id="@+id/item1_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/item_icon"/>
 
             <TextView
+                android:id="@+id/item1_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="个人信息"
@@ -91,11 +95,13 @@
             android:gravity="center_vertical">
 
             <ImageView
+                android:id="@+id/item2_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/item_icon"/>
 
             <TextView
+                android:id="@+id/item2_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="我的记录"
@@ -110,11 +116,13 @@
             android:gravity="center_vertical">
 
             <ImageView
+                android:id="@+id/item3_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/item_icon"/>
 
             <TextView
+                android:id="@+id/item3_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="我的收藏"
@@ -129,11 +137,13 @@
             android:gravity="center_vertical">
 
             <ImageView
+                android:id="@+id/item4_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/item_icon"/>
 
             <TextView
+                android:id="@+id/item4_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="关于"

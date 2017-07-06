@@ -30,7 +30,6 @@ public class SceneTransitionActivity extends BaseActivity {
 
     /*variants*/
     private boolean isCollapsed;
-    private boolean isBackFromAnotherActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +87,16 @@ public class SceneTransitionActivity extends BaseActivity {
                             new Pair<View, String>(findViewById(R.id.layoutBottom), "arc"));
                     startActivity(new Intent(SceneTransitionActivity.this, PersonalInfoActivity.class),
                             optionsCompat.toBundle());
+                    sceneRoot.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            scenePersonalInfo.exit();
+                            sceneStart.enter();
+                        }
+                    }, 350);
                 }else{
                     startActivity(new Intent(SceneTransitionActivity.this, PersonalInfoActivity.class));
                 }
-                isBackFromAnotherActivity = true;
             }
 
             @Override
@@ -130,11 +135,5 @@ public class SceneTransitionActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        if(isBackFromAnotherActivity){
-            scenePersonalInfo.exit();
-            sceneStart.enter();
-            isBackFromAnotherActivity = false;
-        }
     }
 }
