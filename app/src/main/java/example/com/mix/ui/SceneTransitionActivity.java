@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import example.com.mix.R;
+import example.com.mix.utils.CommonUtil;
 import example.com.mix.widgets.Rotation;
 
 public class SceneTransitionActivity extends BaseActivity {
@@ -117,6 +118,7 @@ public class SceneTransitionActivity extends BaseActivity {
     }
 
     private void initView(){
+        CommonUtil.setFullScreen(this);
     }
 
     public void onClick(View v){

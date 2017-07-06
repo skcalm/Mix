@@ -12,11 +12,12 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import example.com.mix.R;
+import example.com.mix.utils.CommonUtil;
 
 public class PersonalInfoActivity extends BaseActivity {
     private ImageView imageClose;
     private ViewGroup layoutRoot;
-    private View viewAvtar;
+    private View viewAvatar;
     private View viewArc;
 
     @Override
@@ -24,8 +25,10 @@ public class PersonalInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info);
 
+        CommonUtil.setFullScreen(this);
+
         viewArc = findViewById(R.id.arc);
-        viewAvtar = findViewById(R.id.avatar);
+        viewAvatar = findViewById(R.id.avatar);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             layoutRoot = (ViewGroup) findViewById(R.id.layoutRoot);
             layoutRoot.setTransitionGroup(false);
@@ -69,7 +72,7 @@ public class PersonalInfoActivity extends BaseActivity {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             layoutRoot.setTransitionGroup(true);
             viewArc.setTransitionName(null);
-            viewAvtar.setTransitionName(null);
+            viewAvatar.setTransitionName(null);
             finishAfterTransition();
         }else{
             finish();
