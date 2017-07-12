@@ -37,6 +37,9 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_scene_transition:
                 startActivity(new Intent(this, SceneTransitionActivity.class));
                 break;
+            case R.id.drag_drop:
+                startActivity(new Intent(this, DragDropActivity.class));
+                break;
             default:
                 break;
         }
