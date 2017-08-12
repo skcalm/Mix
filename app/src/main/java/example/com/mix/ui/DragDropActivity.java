@@ -9,6 +9,8 @@ import android.widget.ImageView;
 
 import example.com.mix.R;
 
+/** only move to views bounding, the relative events will send.
+ * */
 public class DragDropActivity extends BaseActivity{
     private static final String TAG = "DragDrop";
     private ImageView imgIcon1;

@@ -40,6 +40,9 @@ public class MainActivity extends BaseActivity {
             case R.id.drag_drop:
                 startActivity(new Intent(this, DragDropActivity.class));
                 break;
+            case R.id.video:
+                startActivity(new Intent(this, VideoActivity.class));
+                break;
             default:
                 break;
         }

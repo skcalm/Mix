@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="example.com.mix">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -26,7 +28,8 @@
         <activity android:name=".ui.Coordinator4LayoutActivity" />
         <activity android:name=".ui.SceneTransitionActivity" />
         <activity android:name=".ui.PersonalInfoActivity" />
-        <activity android:name=".ui.DragDropActivity"></activity>
+        <activity android:name=".ui.DragDropActivity" />
+        <activity android:name=".ui.VideoActivity"></activity>
     </application>
 
 </manifest>
