@@ -1,5 +1,6 @@
 package example.com.mix.widgets;
 
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -81,7 +82,6 @@ public class MediaPlayerThread extends HandlerThread implements
     }
 
     public MediaPlayer mediaPlayer() {
-        log("mediaPlayer");
         return mMediaPlayer;
     }
 
@@ -131,6 +131,8 @@ public class MediaPlayerThread extends HandlerThread implements
             switch (msg.what) {
                 case ACTION_CREATE_INSTANCE:
                     mMediaPlayer = new MediaPlayer();
+                    mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    mMediaPlayer.setScreenOnWhilePlaying(true);
                     mMediaPlayer.setOnBufferingUpdateListener(MediaPlayerThread.this);
                     mMediaPlayer.setOnPreparedListener(MediaPlayerThread.this);
                     mMediaPlayer.setOnErrorListener(MediaPlayerThread.this);

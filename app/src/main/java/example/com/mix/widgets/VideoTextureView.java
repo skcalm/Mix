@@ -21,7 +21,8 @@ import static example.com.mix.widgets.MediaPlayerThread.ACTION_START;
 public class VideoTextureView extends TextureView implements MediaPlayer.OnInfoListener,
         MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnErrorListener,
         MediaPlayer.OnCompletionListener,
-        MediaPlayer.OnPreparedListener {
+        MediaPlayer.OnPreparedListener,
+        MediaPlayer.OnSeekCompleteListener {
     private static final String TAG = "videoView";
 
     public static final int STATE_ERROR = -1;
@@ -39,6 +40,13 @@ public class VideoTextureView extends TextureView implements MediaPlayer.OnInfoL
     private boolean mWaitPlay;
     private final Object mPlayLock = new Object();
     private final Object mReleaseLock = new Object();
+
+    private MediaPlayer.OnBufferingUpdateListener mBufferingUpdateListener;
+    private MediaPlayer.OnErrorListener mErrorListener;
+    private MediaPlayer.OnInfoListener mInfoListener;
+    private MediaPlayer.OnSeekCompleteListener mSeekCompleteListener;
+    private MediaPlayer.OnCompletionListener mCompletionListener;
+    private MediaPlayer.OnPreparedListener mPreparedListener;
 
     public VideoTextureView(Context context) {
         this(context, null);
@@ -86,7 +94,7 @@ public class VideoTextureView extends TextureView implements MediaPlayer.OnInfoL
                 log("onSurfaceTextureDestroyed isPlaying=" + isPlaying + " isWaitPlay=" + isWaitPlay);
                 mIsSurfaceAvailable = false;
                 release();
-                if(isWaitPlay || isPlaying){
+                if (isWaitPlay || isPlaying) {
                     mWaitPlay = true;
                 }
             }
@@ -122,6 +130,7 @@ public class VideoTextureView extends TextureView implements MediaPlayer.OnInfoL
         mMediaPlayerThread.setOnInfoListener(this);
         mMediaPlayerThread.setOnPreparedListener(this);
         mMediaPlayerThread.setOnCompletionListener(this);
+        mMediaPlayerThread.setOnSeekCompleteListener(this);
         mMediaPlayerThread.operateWithData(ACTION_SET_SURFACE,
                 new Surface(getSurfaceTexture()));
         mMediaPlayerThread.operateWithData(ACTION_SET_PATH, mVideoPath);
@@ -148,21 +157,33 @@ public class VideoTextureView extends TextureView implements MediaPlayer.OnInfoL
         if (isPrepared()) {
             mMediaPlayerThread.operate(ACTION_PAUSE);
         }
+        mWaitPlay = false;
     }
 
-    public boolean isPlaying(){
+    public void seekTo(int millis){
+        if(isPrepared()){
+            mMediaPlayerThread.operateWithData(MediaPlayerThread.ACTION_SEEK, millis);
+        }
+    }
+
+    public boolean isPlaying() {
         log("isPlaying in");
-        final MediaPlayerThread playerThread = mMediaPlayerThread;
-        if(playerThread != null) {
-            MediaPlayer mediaPlayer = playerThread.mediaPlayer();
-            if(mediaPlayer != null && mediaPlayer.isPlaying()) {
-                log("isPlaying end true");
-                return true;
-            }
+        MediaPlayer mediaPlayer = mediaPlayer();
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            log("isPlaying end true");
+            return true;
         }
         log("isPlaying end false");
 
         return false;
+    }
+
+    private MediaPlayer mediaPlayer() {
+        final MediaPlayerThread playerThread = mMediaPlayerThread;
+        if (playerThread != null) {
+            return playerThread.mediaPlayer();
+        }
+        return null;
     }
 
     public void release() {
@@ -196,27 +217,59 @@ public class VideoTextureView extends TextureView implements MediaPlayer.OnInfoL
                 mPlayState != STATE_PREPARING;
     }
 
+    public int getPlayPosition() {
+        if (isPrepared()) {
+            MediaPlayer mediaPlayer = mediaPlayer();
+            if (mediaPlayer != null) {
+                return mediaPlayer.getCurrentPosition();
+            }
+        }
+        return 0;
+    }
+
+    public int getPlayDuration() {
+        if (isPrepared()) {
+            MediaPlayer mediaPlayer = mediaPlayer();
+            if (mediaPlayer != null) {
+                return mediaPlayer.getDuration();
+            }
+        }
+        return -1;
+    }
+
     @Override
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
         log("onBufferingUpdate percent=" + percent);
+        if (mBufferingUpdateListener != null) {
+            mBufferingUpdateListener.onBufferingUpdate(mp, percent);
+        }
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        mPlayState = STATE_COMPLETED;
         log("onCompletion");
+        mPlayState = STATE_COMPLETED;
+        if (mCompletionListener != null) {
+            mCompletionListener.onCompletion(mp);
+        }
     }
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
-        mPlayState = STATE_ERROR;
         log("onError what=" + what + " extra=" + extra);
+        mPlayState = STATE_ERROR;
+        if (mErrorListener != null) {
+            mErrorListener.onError(mp, what, extra);
+        }
         return true;
     }
 
     @Override
     public boolean onInfo(MediaPlayer mp, int what, int extra) {
         log("onInfo what=" + what + " extra=" + extra);
+        if (mInfoListener != null) {
+            mInfoListener.onInfo(mp, what, extra);
+        }
         return false;
     }
 
@@ -227,10 +280,45 @@ public class VideoTextureView extends TextureView implements MediaPlayer.OnInfoL
         if (mWaitPlay) {
             start();
         }
+        if (mPreparedListener != null) {
+            mPreparedListener.onPrepared(mp);
+        }
         log("onPrepared end");
     }
 
-    public void log(String content){
+    @Override
+    public void onSeekComplete(MediaPlayer mp) {
+        log("onSeekComplete");
+        if (mSeekCompleteListener != null) {
+            mSeekCompleteListener.onSeekComplete(mp);
+        }
+    }
+
+    public void setOnBufferingUpdateListener(MediaPlayer.OnBufferingUpdateListener listener) {
+        mBufferingUpdateListener = listener;
+    }
+
+    public void setOnErrorListener(MediaPlayer.OnErrorListener listener) {
+        mErrorListener = listener;
+    }
+
+    public void setOnInfoListener(MediaPlayer.OnInfoListener listener) {
+        mInfoListener = listener;
+    }
+
+    public void setOnCompletionListener(MediaPlayer.OnCompletionListener listener) {
+        mCompletionListener = listener;
+    }
+
+    public void setOnSeekCompleteListener(MediaPlayer.OnSeekCompleteListener listener) {
+        mSeekCompleteListener = listener;
+    }
+
+    public void setOnPreparedListener(MediaPlayer.OnPreparedListener listener) {
+        mPreparedListener = listener;
+    }
+
+    public void log(String content) {
         Log.d(TAG, content);
     }
 }
